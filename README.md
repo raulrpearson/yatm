@@ -3,8 +3,6 @@
 [![Module Version](https://img.shields.io/hexpm/v/yatm.svg)](https://hex.pm/packages/yatm)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/yatm)
 
-> A Tailwind class merging utility.
-
 > [!WARNING]  
 > This project is currently in an experimental proof-of-concept stage. It's
 > still taking shape and many Tailwind features are not yet supported. You're
