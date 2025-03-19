@@ -1,11 +1,48 @@
 defmodule Yatm do
+  @moduledoc """
+  The high-level API.
+  """
   alias Yatm.Parser
 
-  def merge(class_string) do
-    # IO.inspect(class_string, label: "Class String")
+  @doc """
+  Merges `classes`, provided as a string or a list, returning a string with
+  conflicts resolved.
 
-    {:ok, node_list, _, _, _, _} = Parser.parse(class_string)
-    # IO.inspect(node_list, label: "Node List")
+  If a list is provided, anything that isn't a string is discarded. Non-string
+  values might appear as the result of expressions intended to apply classes
+  conditionally.
+
+  ## Examples
+
+  Conflicting classes that come last override the ones coming before:
+
+      iex> Yatm.merge("p-1 p-2")
+      "p-2"
+
+  Provide a string or a list of strings:
+
+      iex> Yatm.merge(["p-1", "p-2"])
+      "p-2"
+
+  Conditionally apply classes:
+
+      iex> Yatm.merge(["p-1", true && "p-2", false && "p-3"])
+      "p-2"
+
+  Anything that isn't a binary is ignored:
+
+      iex> Yatm.merge(["p-1", %{why: "do this"}, 42, "p-2"])
+      "p-2"
+  """
+  def merge(classes) when is_list(classes) do
+    classes
+    |> Stream.filter(&is_binary/1)
+    |> Enum.join(" ")
+    |> merge()
+  end
+
+  def merge(classes) when is_binary(classes) do
+    {:ok, node_list, _, _, _, _} = Parser.parse(classes)
 
     ast =
       for [{:variants, variants}, {keys, class}] <- Stream.chunk_every(node_list, 2),
@@ -15,13 +52,10 @@ defmodule Yatm do
           put_in(acc, keys, class)
       end
 
-    # |> IO.inspect(label: "AST")
-
     for {group, subtree} <- ast do
       prefix = MapSet.to_list(group) |> IO.chardata_to_string()
       get_values(subtree, prefix)
     end
-    # |> IO.inspect(label: "Values")
     |> IO.chardata_to_string()
     |> String.slice(0..-2//1)
   end

@@ -1,29 +1,47 @@
 defmodule Yatm.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+  @source_url "https://github.com/raulrpearson/yatm"
+
   def project do
     [
       app: :yatm,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      package: [
+        maintainers: ["Raúl R. Pearson"],
+        licenses: ["BlueOak-1.0.0"],
+        links: %{"GitHub" => @source_url}
+      ],
+      name: "Yatm",
+      description: "A Tailwind class merging utility",
+      source_url: @source_url,
+      docs: [
+        authors: ["Raúl R. Pearson"],
+        canonical: "https://hexdocs.pm/yatm",
+        extras: [
+          "README.md",
+          "LICENSE.md": [filename: "license", title: "License", source: "LICENSE.md"]
+        ],
+        main: "readme",
+        source_ref: "v#{@version}",
+      ]
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger]
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-      {:nimble_parsec, "~> 1.0"}
+      {:nimble_parsec, "~> 1.0"},
+      {:ex_doc, "~> 0.34", only: :dev, runtime: false}
     ]
   end
 end

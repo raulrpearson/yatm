@@ -1,15 +1,16 @@
-# Yatm (Yet Another Tailwind Merge)
+# Yatm
 
-[![Module Version](https://img.shields.io/hexpm/v/yatm.svg)](https://hex.pm/packages/yatm)
+[![Hex Version](https://img.shields.io/hexpm/v/yatm.svg)](https://hex.pm/packages/yatm)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/yatm)
 
-> [!WARNING]  
+> #### Warning {: .warning}
+>
 > This project is currently in an experimental proof-of-concept stage. It's
 > still taking shape and many Tailwind features are not yet supported. You're
 > welcome to try it out and encouraged to share your feedback, but don't expect
 > it to serve your production needs just yet.
 
-## Installation and usage
+## Usage
 
 Add `yatm` to your list of dependencies in `mix.exs`:
 
@@ -34,7 +35,7 @@ def button(assigns) do
 end
 ```
 
-## The Tailwind utility conflict problem
+## Motivation
 
 When using Tailwind with component abstractions, it's not uncommon for the
 authors of components to provide some basic styling out of the box and for
@@ -77,7 +78,7 @@ later in the string.
 Calling `Yatm.merge("text-sm text-xl")` will return `"text-xl"` and calling
 `Yatm.merge("text-xl text-sm")` will return `"text-sm"`.
 
-## Roadmap and vision
+## Roadmap
 
 ### Finish the `merge` utility
 
@@ -161,7 +162,9 @@ Tailwind class merging as one of the features of the templating engine shipped
 with Phoenix. I assume there'd be an easy way to switch this feature on and off
 so that projects not using Tailwind wouldn't have to pay the compilation price.
 
-## Other Tailwind-related packages
+## Ecosystem
+
+A list of alternatives and other Tailwind-related packages:
 
 - [tailwind](https://hex.pm/packages/tailwind).
 - [tailwind_merge](https://hex.pm/packages/tailwind_merge).
@@ -171,3 +174,8 @@ so that projects not using Tailwind wouldn't have to pay the compilation price.
 - [tails](https://hex.pm/packages/tails).
 - [turboprop](https://hex.pm/packages/turboprop).
 
+## License
+
+[Blue Oak Model License 1.0.0](LICENSE.md), a [modern
+alternative](https://writing.kemitchell.com/2019/03/09/Deprecation-Notice.html)
+to the MIT license.
